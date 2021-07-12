@@ -1,0 +1,197 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('../node_modules/font-awesome/css/font-awesome.min.css');
+.list-group-item.active{
+    background: #ffc107!important;
+    border: none !important;
+    color:black !important
+  }
+  .text-wrap{
+    white-space: nowrap !important; 
+    width: 100%; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.scroll-area{
+  height: 500px;
+  overflow-y: auto;
+  border:1px solid rgba(0,0,0,.125);
+}
+
+/* scrollbar */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: grey; 
+}
+
+
+body {
+  overflow-x: hidden;
+}
+
+#sidebar-wrapper {
+   /* margin-left: -15rem; */
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+  cursor:pointer;
+  position: relative;  
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+/* #sidebar-wrapper .list-group {
+  width: 15rem;
+}
+ */
+#page-content-wrapper {
+  border:1px solid Darkgray
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+/* @media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+  .show
+  {
+    margin-left: 0!important;
+  }
+  .hide
+  {
+    margin-left: -25rem!important;
+  }
+}
+@media (max-width: 767px) {
+  .show
+  {
+    margin-left: -25rem!important;
+  }
+  .hide
+  {
+    margin-left: -0!important;
+  }
+} */
+
+.show
+  {
+    display: block;
+  }
+  .hide
+  {
+    display: none;
+  }
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+.list-new{
+  width:290px;
+  position: absolute;
+  bottom: 20px;
+  }
+
+.header-panel{
+background: lightgray;
+margin-bottom: 0px;
+background-image: linear-gradient(darkgray, white, darkgray);
+}
+
+.list-group-item{
+border:0px;
+}
+
+.note {
+  background-color: #fff;
+  box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.1);
+}
+.note .main {
+  background-color: #eee;
+  overflow: hidden;
+  height: 400px;
+  width: 100%;
+}
+.note textarea {
+  outline: none;
+  font-family: inherit;
+  font-size: 1.2rem;
+  border: none;
+  height: 400px;
+  width: 100%;
+}
+.note textarea::first-line{
+  font-weight: bold;
+}
+.note .hidden {
+  display: none;
+}
+
+textarea {
+  resize: none;
+}
+
+.loader-background {
+  height: 100%;
+  width: 100%;
+  background: rgba(150, 148, 148, 0.4);
+  position: fixed;
+  z-index: 10011;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+.lloader {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  -webkit-animation: 1.2s loading-anim cubic-bezier(.767, .01, .18, 1.01) infinite both;
+  animation: 1.2s loading-anim cubic-bezier(.767, .01, .18, 1.01) infinite both;
+  border-radius: 50%;
+  display: block;
+}
