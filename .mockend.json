@@ -1,5 +1,15 @@
-
 {
+  "Post": {
+    "title": "string",
+    "views": "int",
+    "published": "boolean",
+    "createdAt": "date",
+    "comments": "Comment[]"
+  },
+  "Comment": {
+    "body": "string",
+    "post": "Post"
+  },
   "notedetails":{
     "id":"number",
     "name": "string",
@@ -26,5 +36,4 @@
     "modifiedOn": "date",
     "active": "boolean"
   }
-
 }
