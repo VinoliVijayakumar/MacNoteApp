@@ -1,14 +1,29 @@
 {
-  "Post": {
-    "title": "string",
-    "views": "int",
-    "published": "boolean",
-    "createdAt": "date",
-    "comments": "Comment[]"
+  "Notedetails":{
+    "id":"number",
+    "name": "string",
+    "notesList":"NotesList[]",
+    "show": "boolean",
+    "active": "boolean"
   },
-  "Comment": {
-    "body": "string",
-    "post": "Post"
+  "Recentlydeleted":"DeleteList[]",
+
+  "DeleteList":{
+    "folderName": "string",
+    "header": "string",
+    "content": "string",
+    "createdOn": "date",
+    "modifiedOn": "date",
+    "active": "boolean",
+    "id": "number"
+  },
+  "NotesList":{
+    "folderName": "string",
+    "header": "string",
+    "content": "string",
+    "createdOn": "date",
+    "modifiedOn": "date",
+    "active": "boolean"
   }
-  
+
 }
