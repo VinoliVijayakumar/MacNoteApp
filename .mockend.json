@@ -1,4 +1,5 @@
 {
+  "data":{
   "notedetails":{
     "id":"number",
     "name": "string",
@@ -12,8 +13,8 @@
     "folderName": "string",
     "header": "string",
     "content": "string",
-    "createdOn": "string",
-    "modifiedOn": "string",
+    "createdOn": "date",
+    "modifiedOn": "date",
     "active": "boolean",
     "id": "number"
   },
@@ -21,9 +22,10 @@
     "folderName": "string",
     "header": "string",
     "content": "string",
-    "createdOn": "string",
-    "modifiedOn": "string",
+    "createdOn": "date",
+    "modifiedOn": "date",
     "active": "boolean"
   }
+}
 
 }
