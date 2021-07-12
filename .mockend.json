@@ -9,31 +9,6 @@
   "Comment": {
     "body": "string",
     "post": "Post"
-  },
-  "notedetails":{
-    "id":"number",
-    "name": "string",
-    "notesList":"notesList[]",
-    "show": "boolean",
-    "active": "boolean"
-  },
-  "recentlydeleted":"deleteList[]",
-
-  "deleteList":{
-    "folderName": "string",
-    "header": "string",
-    "content": "string",
-    "createdOn": "date",
-    "modifiedOn": "date",
-    "active": "boolean",
-    "id": "number"
-  },
-  "notesList":{
-    "folderName": "string",
-    "header": "string",
-    "content": "string",
-    "createdOn": "date",
-    "modifiedOn": "date",
-    "active": "boolean"
   }
+  
 }
