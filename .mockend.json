@@ -1,55 +1,29 @@
 {
-  "notedetails": [
-    {
-      "id": 1,
-      "name": "Vinoli Note",
-      "notesList": [
-        {
-          "folderName": "Vinoli Note",
-          "header": "Target X",
-          "content": "Target X\n\nTargetX is the leading higher education CRM solutions provider with enterprise-wide scalability, powered by the Salesforce platform",
-          "createdOn": "2021-07-12T02:44:58.848Z",
-          "modifiedOn": "2021-07-12T02:45:20.475Z",
-          "active": false
-        },
-        {
-          "folderName": "Vinoli Note",
-          "header": "TargetX Mac Note App Developement",
-          "content": "TargetX Mac Note App Developement\n\nNote App Developement using angular as a frontend, jsonserver as fake api.",
-          "createdOn": "2021-07-12T01:52:02.454Z",
-          "modifiedOn": "2021-07-12T02:42:38.596Z",
-          "active": false
-        }
-      ],
-      "show": false,
-      "active": false
-    },
-    {
-      "id": 2,
-      "name": "About Gyan Matrix",
-      "notesList": [
-        {
-          "folderName": "About Gyan Matrix",
-          "header": "Gyanmatrix Technologies",
-          "content": "Gyanmatrix Technologies\n\nWe are a team with a passion for creativity — creativity makes us happy.",
-          "active": false,
-          "createdOn": "2021-07-12T02:45:23.056Z",
-          "modifiedOn": "2021-07-12T02:46:21.789Z"
-        }
-      ],
-      "show": false,
-      "active": true
-    }
-  ],
-  "recentlydeleted": [
-    {
-      "folderName": "About Gyan Matrix",
-      "header": "Recently Delete it",
-      "content": "Recently Delete it\n\nDelete this note",
-      "createdOn": "2021-07-12T02:46:32.264Z",
-      "modifiedOn": "2021-07-12T02:46:50.984Z",
-      "active": false,
-      "id": 1
-    }
-  ]
+  "notedetails":{
+    "id":"number",
+    "name": "string",
+    "notesList":"notesList[]",
+    "show": "boolean",
+    "active": "boolean"
+  },
+  "recentlydeleted":"deleteList[]",
+
+  "deleteList":{
+    "folderName": "string",
+    "header": "string",
+    "content": "string",
+    "createdOn": "string",
+    "modifiedOn": "string",
+    "active": "boolean",
+    "id": "number"
+  },
+  "notesList":{
+    "folderName": "string",
+    "header": "string",
+    "content": "string",
+    "createdOn": "string",
+    "modifiedOn": "string",
+    "active": "boolean"
+  }
+
 }
