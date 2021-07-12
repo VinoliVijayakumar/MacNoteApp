@@ -1,31 +1,13 @@
 {
-  "data":{
-  "notedetails":{
-    "id":"number",
-    "name": "string",
-    "notesList":"notesList[]",
-    "show": "boolean",
-    "active": "boolean"
+  "Post": {
+    "title": "string",
+    "views": "int",
+    "published": "boolean",
+    "createdAt": "date",
+    "comments": "Comment[]"
   },
-  "recentlydeleted":"deleteList[]",
-
-  "deleteList":{
-    "folderName": "string",
-    "header": "string",
-    "content": "string",
-    "createdOn": "date",
-    "modifiedOn": "date",
-    "active": "boolean",
-    "id": "number"
-  },
-  "notesList":{
-    "folderName": "string",
-    "header": "string",
-    "content": "string",
-    "createdOn": "date",
-    "modifiedOn": "date",
-    "active": "boolean"
+  "Comment": {
+    "body": "string",
+    "post": "Post"
   }
-}
-
 }
