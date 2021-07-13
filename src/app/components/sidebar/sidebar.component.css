@@ -9,11 +9,10 @@
     padding: 3px;
 }
 .search-wrapper {
-    width: 500px;
     margin: auto;
 }
 .search-box {
-    width: 50%;
+
     border: 1px solid #ccc;
   outline: 0;
   border-radius: 15px;

@@ -13,7 +13,7 @@ export class NoteService {
   // readonly baseSiteURL = 'https://my-json-server.typicode.com/Mvinoli/mockend/recentlydeleted';
   
   readonly baseURL = 'https://macnotes-742ea-default-rtdb.firebaseio.com/';
-  //readonly baseSiteURL = 'http://localhost:3000/recentlydeleted';
+  readonly baseSiteURL = 'http://localhost:3000/recentlydeleted';
   
   selectedNode: any = {};
   selectedIndex: 0;

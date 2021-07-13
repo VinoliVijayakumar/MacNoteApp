@@ -1,51 +1,67 @@
-    <div class="card">
-      <div class="card-header">
-        <nav class="navbar navbar-expand navbar-light header-panel">
-       
-          <div class="container-fluid">
-              <div class="d-flex justify-content-center">  
-                  <button type="button" class="p-2 m-1 btn btn-secondary" (click)="clickEvent()"><i class="fa fa-bars"></i></button>
-                  <button [disabled]="rdActive || !folderList?.length || searchTerm?.length" (click)="deleteNote()" type="button" class="p-2 m-1 btn btn-secondary"><i class="fa fa-trash"></i></button>
-                  <button [disabled]="rdActive || !folderList?.length || searchTerm?.length" (click)="createNewNote()" type="button" class="p-2 m-1 btn btn-secondary"><i class="fa fa-edit"></i></button>
+<div class="card">
+  <div class="card-header">
+    <nav class="navbar navbar-expand navbar-light header-panel">
+
+      <div class="container-fluid">
+        <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-2">
+            <button type="button" class="p-2 m-1 btn btn-secondary" (click)="clickEvent()"><i
+                class="fa fa-bars"></i></button>
+            <button [disabled]="rdActive || !folderList?.length || searchTerm?.length" (click)="deleteNote()"
+              type="button" class="p-2 m-1 btn btn-secondary"><i class="fa fa-trash"></i></button>
+            <button [disabled]="rdActive || !folderList?.length || searchTerm?.length" (click)="createNewNote()"
+              type="button" class="p-2 m-1 btn btn-secondary"><i class="fa fa-edit"></i></button>
+          </div>
+          <div class="col-md-10" id="navbarSupportedContent">
+
+            <div class="search-wrapper">
+              <form>
+                <input type="text" name="focus" (input)="search()" [(ngModel)]="searchTerm" required class="mt-2 col-md-4 search-box"
+                  placeholder="Enter search term" />
+                <button class="close-icon" type="reset" (click)="searchTerm='';search()"></button>
+              </form>
             </div>
-            <div class="d-flex justify-content-end" id="navbarSupportedContent">
-              <div class="search-wrapper">
-                <form>                
-                <input type="text" name="focus" (input)="search()" [(ngModel)]="searchTerm" required class="search-box" placeholder="Enter search term" />
-                  <button class="close-icon" type="reset" (click)="searchTerm='';search()"></button>
-                </form>
-              </div>
           </div>
-          </div>
-        </nav>
+        </div>
       </div>
-      <div class="card-body">
-        <div id="page-content-wrapper" class="row">
-          <div class="border-right col-md-3 scroll-area" id="sidebar-wrapper"  [ngClass]="status ? 'hide' : 'show'">
-            <div class="sidebar-heading"> </div>
-            <div class="list-group list-group-flush">
-              <ng-container *ngFor="let item of folderList; let i=index" >
-                <!-- <div *ngIf="item.show" class="align-content">
+      </div>
+    </nav>
+  </div>
+  <div class="card-body">
+    <div id="page-content-wrapper" class="row">
+      <div class="border-right col-md-3 scroll-area" id="sidebar-wrapper" [ngClass]="status ? 'hide' : 'show'">
+        <div class="sidebar-heading"> </div>
+        <div class="list-group list-group-flush">
+          <ng-container *ngFor="let item of folderList; let i=index">
+            <!-- <div *ngIf="item.show" class="align-content">
                 <i class="iconcls fa fa-folder"></i>
                 <input type="text" appAutoFocus class="inputcontrol" [(ngModel)]="item.name" (change)="saveFolderName(item)"/>
                 </div> -->
-                <div *ngIf="item.show" href="#" class="list-group-item list-group-item-action foldercls bg-warning"><i class='fa fa-folder-open'></i>
-                  <input type="text" class="inputcontrol" appAutoFocus [(ngModel)]="item.name" (blur)="saveFolderName(item)"/>
-                </div>
-                <a (click)="openNotes(item,i)" (dblclick)="changeFolderName(item, i)" [ngClass]="{active:item.active}" *ngIf="!item.show" href="#" class="list-group-item list-group-item-action bg-light foldercls text-wrap"><i [ngClass]="item.active?'fa fa-folder-open':'fa fa-folder'"></i> {{item.name}}
-                  <span class="badge bg-secondary badgecls pull-right">{{item.notesList?.length}}</span></a>
-                <!-- <a (click)="openNotes(item,i)" (dblclick)="changeFolderName(item, i)" [ngClass]="{active:item.active}" *ngIf="!item.show" href="#" class="list-group-item list-group-item-action"><i [ngClass]="item.active?'fa fa-folder-open':'fa fa-folder'"></i> {{item.name}}</a> -->
-              </ng-container>
-              <a *ngIf="deletedList?.length && !searchTerm?.length" (click)="deletedNotes()" [ngClass]="{active:rdActive}" href="#" class="list-group-item list-group-item-action"><i class="fa fa-trash"></i> Recently Deleted 
-                <span class="badge bg-secondary badgecls pull-right">{{deletedList?.length}}</span></a>
-              <a (click)="createFolder()"  href="#" class="list-group-item list-group-item-action bg-light foldercls list-new"><i class="fa fa-plus-circle"></i> New Folder</a>
-             
+            <div *ngIf="item.show" href="#" class="list-group-item list-group-item-action foldercls bg-warning"><i
+                class='fa fa-folder-open'></i>
+              <input type="text" class="inputcontrol" appAutoFocus [(ngModel)]="item.name"
+                (blur)="saveFolderName(item)" />
             </div>
-          </div>
-          <div [ngClass]="status?'col':'col-md-9'">
-        <app-notes-view [noteData]="currentNote" [isRead]="isReadOnly"></app-notes-view>
-      </div>
+            <a (click)="openNotes(item,i)" (dblclick)="changeFolderName(item, i)" [ngClass]="{active:item.active}"
+              *ngIf="!item.show" href="#" class="list-group-item list-group-item-action bg-light foldercls text-wrap"><i
+                [ngClass]="item.active?'fa fa-folder-open':'fa fa-folder'"></i> {{item.name}}
+              <span class="badge bg-secondary badgecls pull-right">{{item.notesList?.length}}</span></a>
+            <!-- <a (click)="openNotes(item,i)" (dblclick)="changeFolderName(item, i)" [ngClass]="{active:item.active}" *ngIf="!item.show" href="#" class="list-group-item list-group-item-action"><i [ngClass]="item.active?'fa fa-folder-open':'fa fa-folder'"></i> {{item.name}}</a> -->
+          </ng-container>
+          <a *ngIf="deletedList?.length && !searchTerm?.length" (click)="deletedNotes()" [ngClass]="{active:rdActive}"
+            href="#" class="list-group-item list-group-item-action"><i class="fa fa-trash"></i> Recently Deleted
+            <span class="badge bg-secondary badgecls pull-right">{{deletedList?.length}}</span></a>
+          <a (click)="createFolder()" href="#"
+            class="list-group-item list-group-item-action bg-light foldercls list-new"><i class="fa fa-plus-circle"></i>
+            New Folder</a>
+
         </div>
       </div>
-
+      <div [ngClass]="status?'col':'col-md-9'">
+        <app-notes-view [noteData]="currentNote" [isRead]="isReadOnly"></app-notes-view>
+      </div>
     </div>
+  </div>
+
+</div>
