@@ -7,10 +7,14 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class NoteService {
 
-  readonly baseURL = 'http://localhost:3000/notedetails';
-  readonly baseSiteURL = 'http://localhost:3000/recentlydeleted';
+  //readonly baseURL = 'http://localhost:3000/notedetails';
+  //readonly baseSiteURL = 'http://localhost:3000/recentlydeleted';
   // readonly baseURL = 'https://my-json-server.typicode.com/Mvinoli/mockend/notedetails';
   // readonly baseSiteURL = 'https://my-json-server.typicode.com/Mvinoli/mockend/recentlydeleted';
+  
+  readonly baseURL = 'https://macnotes-742ea-default-rtdb.firebaseio.com/';
+  //readonly baseSiteURL = 'http://localhost:3000/recentlydeleted';
+  
   selectedNode: any = {};
   selectedIndex: 0;
   folderList = [];
@@ -24,23 +28,28 @@ export class NoteService {
   constructor(private http: HttpClient) { }
 
   addNotesFolder(folderData: any) {
-    return this.http.post(this.baseURL, folderData, { headers: this.headers });
+    let apiurl=this.baseURL+"notedetails.json";
+    return this.http.post(apiurl, folderData, { headers: this.headers });
   }
 
   getNotesFolders() {
-    return this.http.get(this.baseURL);
+    let apiurl=this.baseURL+"notedetails.json";
+    return this.http.get(apiurl);
   }
 
   updateNotesInfo(site: any) {
-    return this.http.put(this.baseURL + `/${site.id}`, site);
+    let apiurl=this.baseURL+"notedetails/"+site.id+".json";
+    return this.http.put(apiurl, site);
   }
 
   getRecentlyDeleted() {
-    return this.http.get(this.baseSiteURL);
+    let apiurl=this.baseURL+"recentlydeleted.json";
+    return this.http.get(apiurl);
   }
 
   addRecentlyDeleted(data: any) {
-    return this.http.post(this.baseSiteURL, data, { headers: this.headers });
+    let apiurl=this.baseURL+"recentlydeleted.json";
+    return this.http.post(apiurl, data, { headers: this.headers });
   }
 
   deleteRecentlyDeleted(site: any) {

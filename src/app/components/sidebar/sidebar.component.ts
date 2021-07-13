@@ -50,15 +50,23 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   getNotesFolders() {
     this.noteService.isLoading.next(true);
-    this.noteSubscription = this.noteService.getNotesFolders().subscribe((result: any) => {
-      if (result && result.length > 0) {
+    this.noteSubscription = this.noteService.getNotesFolders().subscribe((res: any) => {
+        let result=[];
+      if (res) {
+        for(var prob in res){
+          res[prob].id=prob;
+          result.push(res[prob]);
+        }
         result.forEach((element, index) => {
+          element.active=false;
           element.notesList.sort((a, b) => ((new Date(a.modifiedOn) > new Date(b.modifiedOn)) ? -1 : 1));
         });
         result.sort((a, b) => ((a.name.toLowerCase() < b.name.toLowerCase()) ? -1 : 1));
+       
         this.folderList = result;
-        this.folderList[0].active = true;
-
+        this.noteService.selectedFolderIndex = 0;
+        this.folderList[this.noteService.selectedFolderIndex].active = true;
+        
         this.noteService.flist.next(this.folderList);
         this.noteService.folderList = this.folderList;
         this.currentNote = this.folderList[0];
@@ -69,8 +77,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   getRecentlyDeleted() {
     this.noteService.isLoading.next(true);
-    this.recentSubscription = this.noteService.getRecentlyDeleted().subscribe((result: any) => {
-      if (result && result.length > 0) {
+    this.recentSubscription = this.noteService.getRecentlyDeleted().subscribe((res: any) => {
+      let result=[];
+      if (res) {
+        for(var prob in res){
+          res[prob].id=prob;
+          result.push(res[prob]);
+        }
         result.sort((a, b) => ((new Date(a.modifiedOn) > new Date(b.modifiedOn)) ? -1 : 1));
         this.deletedList = result;
       }
@@ -88,7 +101,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.setValue();
     this.folderList.push(
       {
-        id: 0,
+        id: '',
         name: "",
         notesList: [
           {
@@ -106,8 +119,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     );
 
     this.noteService.selectedFolderIndex = this.folderList.length - 1;
-    this.prevIndex = this.folderList.length - 1;
-    this.folderList[this.prevIndex].active = true;
+    this.folderList[this.noteService.selectedFolderIndex].active = true;
   }
 
   changeFolderName(item, fIndex) {
@@ -121,6 +133,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     this.updateSubscription = this.noteService.updateNotesInfo(this.folderList[fIndex]).subscribe((result: any) => {
       if (result) {
+        result.id=this.folderList[fIndex].id;
         this.folderList[fIndex] = result;
         this.noteService.folderList[fIndex] = result;
         this.folderList.sort((a, b) => ((a.name.toLowerCase() < b.name.toLowerCase()) ? -1 : 1));
@@ -134,22 +147,21 @@ export class SidebarComponent implements OnInit, OnDestroy {
       item.name = "New Folder";
     }
     item.show = false;
-    this.folderList[this.prevIndex].notesList[0].folderName = item.name;
+    this.folderList[this.noteService.selectedFolderIndex].notesList[0].folderName = item.name;
     this.folderList.sort((a, b) => ((a.name.toLowerCase() < b.name.toLowerCase()) ? -1 : 1));
-    this.prevIndex = this.folderList.findIndex(lItem => (lItem.id == item.id));
-    //this.openNotes(this.folderList[this.prevIndex], this.prevIndex);
+    this.noteService.selectedFolderIndex = this.folderList.findIndex(lItem => (lItem.id == item.id));
+    //this.openNotes(this.folderList[this.noteService.selectedFolderIndex], this.noteService.selectedFolderIndex);
     item.active = true;
     this.currentNote = JSON.parse(JSON.stringify(item));
-    this.folderList[this.prevIndex].active = true;
-    this.prevIndex = this.prevIndex;
-    this.noteService.selectedFolderIndex = this.prevIndex;
+    this.folderList[this.noteService.selectedFolderIndex].active = true;
+    this.noteService.selectedFolderIndex = this.noteService.selectedFolderIndex;
 
   }
 
   openNotes(item, index) {
     this.rdActive = false;
     this.setValue();
-    if (this.folderList[this.prevIndex].notesList?.length > 0 && this.folderList[this.prevIndex].notesList[this.noteService.selectedIndex].header == "New Note") {
+    if (this.folderList[this.noteService.selectedFolderIndex].notesList?.length > 0 && this.folderList[this.noteService.selectedFolderIndex].notesList[this.noteService.selectedIndex].header == "New Note") {
       this.noteService.selectedNode.notesList.splice(this.noteService.selectedIndex, 1);
       this.noteService.folderList[this.noteService.selectedFolderIndex] = this.noteService.selectedNode;
       this.noteService.flist.next(this.noteService.folderList);
@@ -158,7 +170,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
     item.active = true;
     this.currentNote = JSON.parse(JSON.stringify(item));
     this.folderList[index].active = true;
-    this.prevIndex = index;
     this.noteService.selectedFolderIndex = index;
   }
 
@@ -201,8 +212,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.noteService.isLoading.next(true);
         forkJoin([addRecentlyDeleted, updateNotesInfo]).subscribe((result: any) => {
           if (result) {
-            if (result[0])
-              this.deletedList.push(result[0]);
+            if (result[0]!=null && result[0].name!=null){
+              dData.id = result[0].name;
+              this.deletedList.push(dData);
+            }
 
             if (result[1]) {
               this.noteService.folderList[this.noteService.selectedFolderIndex] = this.currentNote;
@@ -238,17 +251,17 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   setValue() {
     if (this.folderList.length > 0) {
-      if (this.folderList[this.prevIndex] != null && this.folderList[this.prevIndex].name != null &&
-        this.folderList[this.prevIndex].name != '') {
+      if (this.folderList[this.noteService.selectedFolderIndex] != null && this.folderList[this.noteService.selectedFolderIndex].name != null &&
+        this.folderList[this.noteService.selectedFolderIndex].name != '') {
 
-        this.folderList[this.prevIndex].show = false;
-        this.folderList[this.prevIndex].active = false;
-        if (this.folderList[this.prevIndex].notesList.length > 0)
-          this.folderList[this.prevIndex].notesList[this.noteService.selectedIndex].active = false;
-        this.noteService.selectedNode = this.folderList[this.prevIndex];
+        this.folderList[this.noteService.selectedFolderIndex].show = false;
+        this.folderList[this.noteService.selectedFolderIndex].active = false;
+        if (this.folderList[this.noteService.selectedFolderIndex].notesList.length > 0)
+          this.folderList[this.noteService.selectedFolderIndex].notesList[this.noteService.selectedIndex].active = false;
+        this.noteService.selectedNode = this.folderList[this.noteService.selectedFolderIndex];
 
       } else {
-        this.folderList.splice(this.prevIndex, 1);
+        this.folderList.splice(this.noteService.selectedFolderIndex, 1);
       }
     }
 
@@ -267,6 +280,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
           item.notesList = data;
           filteredArr.push(item);
           if (filteredArr.length == 1) filteredArr[0].active = true;
+          else
+          filteredArr[filteredArr.length-1].active = false;
         }
 
       });

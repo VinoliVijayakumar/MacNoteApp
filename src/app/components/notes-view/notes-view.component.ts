@@ -81,10 +81,13 @@ export class NotesViewComponent implements OnInit, OnDestroy {
       temp.notesList[this.noteService.selectedIndex].active = false;
     }
 
-    if (this.noteService.selectedNode.id != null && this.noteService.selectedNode.id > 0) {
+    if (this.noteService.selectedNode.id != null && this.noteService.selectedNode.id != "") {
       this.updateSubscription = this.noteService.updateNotesInfo(temp).subscribe((result: any) => {
         if (result) {
-          this.noteService.selectedNode = this.noteService.selectedNode;
+          this.noteService.selectedNode.notesList[this.noteService.selectedIndex].active = false;
+          this.noteService.selectedNode.notesList.sort((a, b) => ((new Date(a.modifiedOn) > new Date(b.modifiedOn)) ? -1 : 1));
+          this.noteService.selectedIndex=0;
+          this.noteService.selectedNode.notesList[this.noteService.selectedIndex].active = true;
           this.noteService.folderList[this.noteService.selectedFolderIndex] = this.noteService.selectedNode;
           this.noteService.flist.next(this.noteService.folderList);
         }
@@ -93,7 +96,7 @@ export class NotesViewComponent implements OnInit, OnDestroy {
     } else {
       this.addSubscription = this.noteService.addNotesFolder(temp).subscribe((result: any) => {
         if (result) {
-          this.noteService.selectedNode.id = result.id;
+          this.noteService.selectedNode.id = result.name;
           this.noteService.selectedNode = this.noteService.selectedNode;
           this.noteService.folderList[this.noteService.selectedFolderIndex] = this.noteService.selectedNode;
           this.noteService.flist.next(this.noteService.folderList);

@@ -42,7 +42,7 @@
              
             </div>
           </div>
-          <div class="col">
+          <div [ngClass]="status?'col':'col-md-9'">
         <app-notes-view [noteData]="currentNote" [isRead]="isReadOnly"></app-notes-view>
       </div>
         </div>
